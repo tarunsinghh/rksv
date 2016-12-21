@@ -1,0 +1,32 @@
+Algorithm used :
+
+Sort the sleep timings.
+Start them in separate thread.
+Now first thread will finish first as we have already sorted,so wait for it to finsh and when it finishes ,start a new thread with sleeping time of new sleeping time  - sleep already taken.
+
+For example 
+	async->async_wait(8000, &callback);
+	async->async_wait(3000, &callback);
+	async->async_wait(4000, &callback);
+	async->async_wait(1000, &callback);
+	async->async_wait(2000, &callback);
+	async->async_wait(5000, &callback);
+	async->async_wait(9000, &callback); 
+
+	Suppose max thread allowed are 2.
+
+
+	Initialize the buffer with these sleep timings and sort the buffer array.
+
+	Start two threads which will wait for 1000 ms and 2000 ms.
+	Now program waits until sleep time of 1000 ms finshes and when it finishes it creates a new thread with sleep timing of 3000 - 1000 = 2000 ms as 1000 ms sleep already taken.
+
+	Now next request of 5000 ms will be taken when the thread running 2000 ms finishes,then it finishes it will start a new thread with thread timing of 5000 - 2000 = 3000 ms as 2000 ms sleep already taken.
+
+
+	So at a given time all the thread will be in running state,and if no of request are less than no of max threads then only that no of threads will be created.
+
+
+
+	Thanks,
+	Tarun Prakash Singh(TPS)
